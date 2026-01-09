@@ -1,0 +1,120 @@
+.jf-wrap {
+  min-height: 100vh;
+  background: #05050a;
+  color: #ffffff;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jf-card {
+  width: min(92vw, 520px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0px 18px 55px rgba(0, 0, 0, 0.55);
+}
+
+.jf-form-only {
+  text-align: center;
+}
+
+.jf-heading {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+}
+
+.jf-underline {
+  width: 140px;
+  height: 3px;
+  margin: 10px auto 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0066ff, #a200ff);
+}
+
+.jf-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jf-action-block {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jf-btn {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.jf-btn:active {
+  transform: scale(0.98);
+}
+
+.jf-btn-primary {
+  background: #ffffff;
+  color: #05050a;
+}
+
+.jf-btn-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.jf-btn-gradient {
+  background: linear-gradient(90deg, #0066ff, #a200ff);
+  color: #ffffff;
+}
+
+.jf-btn-locked {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: not-allowed;
+}
+
+.jf-disabled {
+  opacity: 0.7;
+}
+
+.jf-hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.35;
+}
+
+@media (max-width: 400px) {
+  .jf-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .jf-heading {
+    font-size: 1.4rem;
+  }
+
+  .jf-btn {
+    font-size: 0.94rem;
+    padding: 11px 12px;
+    border-radius: 13px;
+  }
+}

@@ -1,0 +1,194 @@
+.uf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px) saturate(160%);
+  padding: 18px;
+  animation: ufFade 0.22s ease;
+}
+
+@keyframes ufFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.uf-modal {
+  width: min(92vw, 520px);
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0px 22px 65px rgba(0, 0, 0, 0.65);
+  position: relative;
+  overflow: hidden;
+}
+
+.uf-modal::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(800px 280px at 10% 0%, rgba(0, 102, 255, 0.22), transparent 60%),
+    radial-gradient(700px 260px at 90% 100%, rgba(162, 0, 255, 0.22), transparent 65%);
+  filter: blur(10px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.uf-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.uf-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+
+.uf-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.uf-close:active {
+  transform: scale(0.98);
+}
+
+.uf-subtitle {
+  margin: 8px 0 16px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.72);
+  position: relative;
+  z-index: 2;
+}
+
+.uf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.uf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.uf-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.uf-input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.uf-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.uf-input:focus {
+  border-color: rgba(0, 102, 255, 0.7);
+  box-shadow: 0px 0px 0px 3px rgba(0, 102, 255, 0.15);
+}
+
+.uf-error {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 60, 90, 0.1);
+  border: 1px solid rgba(255, 60, 90, 0.25);
+  color: rgba(255, 220, 230, 0.95);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.uf-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.uf-btn {
+  border: none;
+  outline: none;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.uf-btn:active {
+  transform: scale(0.98);
+}
+
+.uf-btn-primary {
+  background: linear-gradient(90deg, #0066ff, #a200ff);
+  color: #ffffff;
+}
+
+.uf-btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.uf-note {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.35;
+}
+
+@media (max-width: 400px) {
+  .uf-modal {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .uf-title {
+    font-size: 1.15rem;
+  }
+
+  .uf-input {
+    padding: 11px 12px;
+    border-radius: 13px;
+  }
+
+  .uf-btn {
+    padding: 10px 12px;
+    border-radius: 13px;
+    font-size: 0.92rem;
+  }
+}
