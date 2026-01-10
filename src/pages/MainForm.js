@@ -15,7 +15,7 @@ export default function MainForm() {
   const step3Active = isFormSubmitted && isFeedbackDone;
 
   const reviewUrl =
-    "https://maps.app.goo.gl/TKWNgabEtkaZyzmUA?g_st=iw";
+    "https://maps.app.goo.gl/QHL3N2aS8rMbSrzq6?g_st=ic";
 
   const user = useMemo(() => {
     try {
