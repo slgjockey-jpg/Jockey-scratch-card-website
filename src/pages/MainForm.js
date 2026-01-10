@@ -15,7 +15,7 @@ export default function MainForm() {
   const step3Active = isFormSubmitted && isFeedbackDone;
 
   const reviewUrl =
-    "https://www.google.com/maps/api/js/ReviewsService.LoadWriteWidget?key=AIzaSyCPBV2lN8GhK1qwSAsabHlj0iLbaNTdnyU";
+    "https://maps.app.goo.gl/TKWNgabEtkaZyzmUA?g_st=iw";
 
   const user = useMemo(() => {
     try {
