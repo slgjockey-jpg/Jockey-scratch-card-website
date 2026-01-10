@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./UserFormPopup.css";
 
 const API_BASE_URL =
@@ -9,15 +9,39 @@ export default function UserFormPopup({ onClose, onSubmit }) {
   const [mobile, setMobile] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const modalRef = useRef(null);
 
-  const cleanMobile = useMemo(
-    () => mobile.replace(/\D/g, "").slice(0, 10),
-    [mobile]
-  );
+  const cleanMobile = useMemo(() => mobile.replace(/\D/g, "").slice(0, 10), [mobile]);
 
   useEffect(() => {
     setError("");
   }, [name, mobile]);
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape" && !loading) onClose?.();
+      if (e.key === "Enter") return;
+      if (e.key === "Tab") {
+        const root = modalRef.current;
+        if (!root) return;
+        const focusables = root.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [loading, onClose]);
 
   const isValidMobile = (value) => /^[6-9]\d{9}$/.test(value);
 
@@ -27,7 +51,6 @@ export default function UserFormPopup({ onClose, onSubmit }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mobile: mb }),
     });
-
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Failed");
     return data.exists;
@@ -39,7 +62,6 @@ export default function UserFormPopup({ onClose, onSubmit }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Failed");
     return data;
@@ -66,8 +88,8 @@ export default function UserFormPopup({ onClose, onSubmit }) {
       await saveEntry({ name: nm, mobile: mb });
 
       setLoading(false);
-      onSubmit({ name: nm, mobile: mb });
-      onClose();
+      onSubmit?.({ name: nm, mobile: mb });
+      onClose?.();
     } catch (err) {
       setLoading(false);
       setError(err.message || "Something went wrong");
@@ -75,15 +97,22 @@ export default function UserFormPopup({ onClose, onSubmit }) {
   };
 
   return (
-    <div className="uf-overlay" onClick={loading ? undefined : onClose}>
-      <div className="uf-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="uf-overlay" role="dialog" aria-modal="true">
+      <div className="uf-backdrop" onClick={loading ? undefined : onClose} />
+
+      <div className="uf-modal" ref={modalRef} onClick={(e) => e.stopPropagation()}>
         <div className="uf-glow uf-glow-a" />
         <div className="uf-glow uf-glow-b" />
 
-        <div className="uf-top">
-          <div className="uf-title-wrap">
-            <h2 className="uf-title">Customer Details</h2>
-            <p className="uf-subtitle">Enter your name and mobile to continue</p>
+        <div className="uf-head">
+          <div className="uf-brand">
+            <div className="uf-mark">
+              <span className="uf-mark-dot" />
+            </div>
+            <div className="uf-brand-text">
+              <div className="uf-brand-title">SGL JOCKEY</div>
+              <div className="uf-brand-sub">Rewards Entry</div>
+            </div>
           </div>
 
           <button
@@ -96,33 +125,52 @@ export default function UserFormPopup({ onClose, onSubmit }) {
           </button>
         </div>
 
+        <div className="uf-hero">
+          <h2 className="uf-title">Customer Details</h2>
+          <p className="uf-subtitle">Fill your name and mobile number to continue.</p>
+        </div>
+
         <form className="uf-form" onSubmit={handleSubmit}>
-          <div className="uf-field">
-            <label className="uf-label">Name</label>
-            <input
-              className="uf-input"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your full name"
-              autoFocus
-              disabled={loading}
-            />
+          <div className="uf-grid">
+            <div className="uf-field">
+              <label className="uf-label">Name</label>
+              <div className="uf-input-wrap">
+                <span className="uf-ic">👤</span>
+                <input
+                  className="uf-input"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full name"
+                  autoFocus
+                  disabled={loading}
+                />
+              </div>
+            </div>
+
+            <div className="uf-field">
+              <label className="uf-label">Mobile</label>
+              <div className="uf-input-wrap">
+                <span className="uf-ic">📱</span>
+                <input
+                  className="uf-input"
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                  placeholder="10-digit mobile"
+                  inputMode="numeric"
+                  maxLength={10}
+                  disabled={loading}
+                />
+              </div>
+              <div className="uf-hint">Only used to prevent duplicate entries.</div>
+            </div>
           </div>
 
-          <div className="uf-field">
-            <label className="uf-label">Mobile Number</label>
-            <input
-              className="uf-input"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              placeholder="Enter 10-digit mobile"
-              inputMode="numeric"
-              maxLength={10}
-              disabled={loading}
-            />
-          </div>
-
-          {error ? <div className="uf-error">{error}</div> : null}
+          {error ? (
+            <div className="uf-error" role="alert">
+              <div className="uf-error-dot" />
+              <div className="uf-error-text">{error}</div>
+            </div>
+          ) : null}
 
           <div className="uf-actions">
             <button
@@ -134,18 +182,21 @@ export default function UserFormPopup({ onClose, onSubmit }) {
               Cancel
             </button>
 
-            <button
-              type="submit"
-              className="uf-btn uf-btn-primary"
-              disabled={loading}
-            >
-              {loading ? "Submitting..." : "Submit"}
+            <button type="submit" className="uf-btn uf-btn-primary" disabled={loading}>
+              {loading ? (
+                <span className="uf-btn-loading">
+                  <span className="uf-mini-loader" />
+                  Submitting
+                </span>
+              ) : (
+                "Submit"
+              )}
             </button>
           </div>
 
-          <p className="uf-note">
-            Your mobile number is used only to prevent duplicate entries.
-          </p>
+          <div className="uf-footer">
+            Press <span className="uf-kbd">Esc</span> to close
+          </div>
         </form>
       </div>
     </div>

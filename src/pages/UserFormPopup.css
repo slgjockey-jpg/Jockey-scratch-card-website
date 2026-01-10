@@ -4,10 +4,15 @@
   z-index: 9999;
   display: grid;
   place-items: center;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(10px) saturate(160%);
   padding: 18px;
-  animation: ufFade 0.22s ease;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px) saturate(160%);
+  animation: ufFade 0.18s ease;
+}
+
+.uf-backdrop {
+  position: absolute;
+  inset: 0;
 }
 
 @keyframes ufFade {
@@ -20,78 +25,122 @@
 }
 
 .uf-modal {
-  width: min(92vw, 520px);
-  border-radius: 18px;
+  width: min(94vw, 560px);
+  border-radius: 20px;
   padding: 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0px 22px 65px rgba(0, 0, 0, 0.65);
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0px 26px 80px rgba(0, 0, 0, 0.68);
+  transform: translateY(0);
+  animation: ufPop 0.18s ease;
+}
+
+@keyframes ufPop {
+  from {
+    transform: translateY(10px) scale(0.985);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .uf-glow {
   position: absolute;
-  width: 360px;
-  height: 360px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(70px);
   opacity: 0.35;
   pointer-events: none;
 }
 
 .uf-glow-a {
-  left: -160px;
-  top: -160px;
-  background: rgba(0, 102, 255, 0.6);
+  left: -200px;
+  top: -210px;
+  background: rgba(0, 102, 255, 0.65);
 }
 
 .uf-glow-b {
-  right: -170px;
-  bottom: -170px;
-  background: rgba(162, 0, 255, 0.6);
+  right: -220px;
+  bottom: -220px;
+  background: rgba(162, 0, 255, 0.65);
 }
 
-.uf-top {
+.uf-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   position: relative;
   z-index: 2;
 }
 
-.uf-title-wrap {
+.uf-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.uf-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+}
+
+.uf-mark-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0066ff, #a200ff);
+  box-shadow: 0px 0px 0px 4px rgba(0, 102, 255, 0.12);
+}
+
+.uf-brand-text {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  line-height: 1.1;
 }
 
-.uf-title {
-  margin: 0;
-  font-size: 1.2rem;
+.uf-brand-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.35px;
+}
+
+.uf-brand-sub {
+  margin-top: 2px;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-.uf-subtitle {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .uf-close {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   font-size: 16px;
   line-height: 1;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.uf-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.uf-close:active {
+  transform: scale(0.985);
 }
 
 .uf-close:disabled {
@@ -99,13 +148,43 @@
   cursor: not-allowed;
 }
 
+.uf-hero {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.uf-title {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.uf-subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.35;
+}
+
 .uf-form {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   position: relative;
   z-index: 2;
+}
+
+.uf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .uf-field {
@@ -115,62 +194,106 @@
 }
 
 .uf-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.uf-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.38);
+  transition: box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.uf-ic {
+  width: 34px;
+  height: 34px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
 .uf-input {
   width: 100%;
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.42);
-  color: #ffffff;
+  border: none;
   outline: none;
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
   font-size: 0.95rem;
-  font-weight: 500;
+  padding: 0;
 }
 
 .uf-input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.uf-input:focus {
-  border-color: rgba(0, 102, 255, 0.7);
-  box-shadow: 0px 0px 0px 3px rgba(0, 102, 255, 0.15);
+  color: rgba(255, 255, 255, 0.42);
+  font-weight: 600;
 }
 
 .uf-input:disabled {
   opacity: 0.75;
 }
 
+.uf-input-wrap:focus-within {
+  border-color: rgba(0, 102, 255, 0.7);
+  box-shadow: 0px 0px 0px 3px rgba(0, 102, 255, 0.14);
+}
+
+.uf-hint {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.25;
+  margin-top: -2px;
+}
+
 .uf-error {
-  padding: 10px 12px;
-  border-radius: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 16px;
   background: rgba(255, 60, 90, 0.1);
   border: 1px solid rgba(255, 60, 90, 0.25);
   color: rgba(255, 220, 230, 0.95);
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.uf-error-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 60, 90, 0.95);
+  margin-top: 5px;
+  flex-shrink: 0;
 }
 
 .uf-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  justify-content: flex-end;
-  margin-top: 6px;
+  margin-top: 2px;
 }
 
 .uf-btn {
   border: none;
   outline: none;
-  padding: 11px 14px;
-  border-radius: 14px;
-  font-weight: 600;
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-weight: 900;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: transform 0.12s ease, filter 0.12s ease;
+  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
 }
 
 .uf-btn:active {
@@ -184,41 +307,91 @@
 
 .uf-btn-primary {
   background: linear-gradient(90deg, #0066ff, #a200ff);
-  color: #ffffff;
+  color: #fff;
+}
+
+.uf-btn-primary:hover {
+  filter: brightness(1.05);
 }
 
 .uf-btn-ghost {
   background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.uf-note {
-  margin: 8px 0 0;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.62);
-  line-height: 1.35;
+.uf-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
-@media (max-width: 400px) {
+.uf-btn-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.uf-mini-loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  animation: ufSpin 0.8s linear infinite;
+}
+
+@keyframes ufSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.uf-footer {
+  margin-top: -4px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.uf-kbd {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 900;
+  font-size: 0.78rem;
+  margin: 0 4px;
+}
+
+@media (max-width: 740px) {
   .uf-modal {
+    width: min(96vw, 560px);
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 18px;
   }
 
+  .uf-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .uf-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
   .uf-title {
-    font-size: 1.12rem;
+    font-size: 1.18rem;
   }
 
-  .uf-input {
-    padding: 11px 12px;
-    border-radius: 13px;
+  .uf-input-wrap {
+    border-radius: 15px;
   }
 
   .uf-btn {
-    padding: 10px 12px;
-    border-radius: 13px;
-    font-size: 0.92rem;
+    border-radius: 15px;
   }
 }
