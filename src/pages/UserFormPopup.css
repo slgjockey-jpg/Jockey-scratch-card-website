@@ -30,31 +30,56 @@
   overflow: hidden;
 }
 
-.uf-modal::before {
-  content: "";
+.uf-glow {
   position: absolute;
-  inset: -2px;
-  background: radial-gradient(800px 280px at 10% 0%, rgba(0, 102, 255, 0.22), transparent 60%),
-    radial-gradient(700px 260px at 90% 100%, rgba(162, 0, 255, 0.22), transparent 65%);
-  filter: blur(10px);
-  opacity: 0.9;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
   pointer-events: none;
+}
+
+.uf-glow-a {
+  left: -160px;
+  top: -160px;
+  background: rgba(0, 102, 255, 0.6);
+}
+
+.uf-glow-b {
+  right: -170px;
+  bottom: -170px;
+  background: rgba(162, 0, 255, 0.6);
 }
 
 .uf-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   position: relative;
   z-index: 2;
 }
 
+.uf-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .uf-title {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: 0.3px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.uf-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.4;
 }
 
 .uf-close {
@@ -69,19 +94,13 @@
   line-height: 1;
 }
 
-.uf-close:active {
-  transform: scale(0.98);
-}
-
-.uf-subtitle {
-  margin: 8px 0 16px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.72);
-  position: relative;
-  z-index: 2;
+.uf-close:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .uf-form {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -97,7 +116,7 @@
 
 .uf-label {
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -106,10 +125,11 @@
   padding: 12px 12px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.42);
   color: #ffffff;
   outline: none;
   font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .uf-input::placeholder {
@@ -121,13 +141,17 @@
   box-shadow: 0px 0px 0px 3px rgba(0, 102, 255, 0.15);
 }
 
+.uf-input:disabled {
+  opacity: 0.75;
+}
+
 .uf-error {
   padding: 10px 12px;
   border-radius: 14px;
   background: rgba(255, 60, 90, 0.1);
   border: 1px solid rgba(255, 60, 90, 0.25);
   color: rgba(255, 220, 230, 0.95);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
@@ -135,7 +159,7 @@
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .uf-btn {
@@ -143,14 +167,19 @@
   outline: none;
   padding: 11px 14px;
   border-radius: 14px;
-  font-weight: 900;
+  font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: transform 0.12s ease;
+  transition: transform 0.12s ease, filter 0.12s ease;
 }
 
 .uf-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
+}
+
+.uf-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .uf-btn-primary {
@@ -165,9 +194,10 @@
 }
 
 .uf-note {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
   line-height: 1.35;
 }
 
@@ -178,7 +208,7 @@
   }
 
   .uf-title {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
   }
 
   .uf-input {
