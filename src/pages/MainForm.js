@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./MainForm.css";
 import UserFormPopup from "./UserFormPopup";
+import WelcomePopup from "./WelcomePopup";
 
 export default function MainForm() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -8,6 +9,7 @@ export default function MainForm() {
   const [showFormPopup, setShowFormPopup] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const step2Active = isFormSubmitted;
   const step3Active = isFormSubmitted && isFeedbackDone;
@@ -24,8 +26,31 @@ export default function MainForm() {
   }, [isFormSubmitted]);
 
   useEffect(() => {
+    const reset = localStorage.getItem("jockey_reset") === "1";
+
+    if (reset) {
+      localStorage.removeItem("jockey_reset");
+      setIsFormSubmitted(false);
+      setIsFeedbackDone(false);
+      setShowFormPopup(false);
+      setError("");
+      setSuccessMsg("");
+      setShowWelcome(true);
+      return;
+    }
+
+    const feedbackDone = localStorage.getItem("jockey_feedback_done") === "1";
     if (user?.mobile) setIsFormSubmitted(true);
+    if (feedbackDone) setIsFeedbackDone(true);
+
+    setShowWelcome(true);
   }, []);
+
+  useEffect(() => {
+    if (!showWelcome) return;
+    const t = setTimeout(() => setShowWelcome(false), 2500);
+    return () => clearTimeout(t);
+  }, [showWelcome]);
 
   const handleOpenForm = () => {
     setError("");
@@ -37,6 +62,7 @@ export default function MainForm() {
     localStorage.setItem("jockey_user", JSON.stringify({ name, mobile }));
     setIsFormSubmitted(true);
     setIsFeedbackDone(false);
+    localStorage.removeItem("jockey_feedback_done");
     setShowFormPopup(false);
     setError("");
     setSuccessMsg("Successfully submitted");
@@ -45,6 +71,7 @@ export default function MainForm() {
 
   const handleFeedback = () => {
     window.open(reviewUrl, "_blank", "noopener,noreferrer");
+    localStorage.setItem("jockey_feedback_done", "1");
     setIsFeedbackDone(true);
   };
 
@@ -57,6 +84,8 @@ export default function MainForm() {
       <div className="mf-glow mf-glow-left" />
       <div className="mf-glow mf-glow-right" />
 
+      <WelcomePopup show={showWelcome} />
+
       {showFormPopup ? (
         <UserFormPopup
           onClose={() => setShowFormPopup(false)}
@@ -68,15 +97,11 @@ export default function MainForm() {
         <div className="mf-hero">
           <div className="mf-badge">SGL JOCKEY</div>
           <h1 className="mf-title">Scratch and Win Rewards</h1>
-          <p className="mf-subtitle">
-            Complete the steps below to unlock your scratch card.
-          </p>
+          <p className="mf-subtitle">Complete the steps below to unlock your scratch card.</p>
         </div>
 
         {error ? <div className="mf-alert mf-alert-error">{error}</div> : null}
-        {successMsg ? (
-          <div className="mf-alert mf-alert-success">{successMsg}</div>
-        ) : null}
+        {successMsg ? <div className="mf-alert mf-alert-success">{successMsg}</div> : null}
 
         <div className="mf-steps">
           <div className={`mf-step ${isFormSubmitted ? "done" : "active"}`}>
@@ -86,9 +111,7 @@ export default function MainForm() {
                 <div className="mf-step-title">Step 1</div>
                 <div className="mf-step-desc">Submit your name and mobile</div>
               </div>
-              <div className="mf-status">
-                {isFormSubmitted ? "Completed" : "Pending"}
-              </div>
+              <div className="mf-status">{isFormSubmitted ? "Completed" : "Pending"}</div>
             </div>
 
             {user?.name && user?.mobile ? (
@@ -114,9 +137,7 @@ export default function MainForm() {
                 <div className="mf-step-title">Step 2</div>
                 <div className="mf-step-desc">Leave a review on Google</div>
               </div>
-              <div className="mf-status">
-                {isFeedbackDone ? "Completed" : step2Active ? "Ready" : "Locked"}
-              </div>
+              <div className="mf-status">{isFeedbackDone ? "Completed" : step2Active ? "Ready" : "Locked"}</div>
             </div>
 
             <button
@@ -135,9 +156,7 @@ export default function MainForm() {
                 <div className="mf-step-title">Step 3</div>
                 <div className="mf-step-desc">Reveal your reward</div>
               </div>
-              <div className="mf-status">
-                {step3Active ? "Ready" : "Locked"}
-              </div>
+              <div className="mf-status">{step3Active ? "Ready" : "Locked"}</div>
             </div>
 
             <button

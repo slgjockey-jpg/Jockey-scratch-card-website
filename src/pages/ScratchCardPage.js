@@ -27,6 +27,9 @@ export default function ScratchCardPage() {
     setClaiming(true);
     await new Promise((r) => setTimeout(r, 900));
     await triggerPopup();
+    localStorage.removeItem("jockey_user");
+    localStorage.removeItem("jockey_feedback_done");
+    localStorage.setItem("jockey_reset", "1");
     navigate("/");
     setClaiming(false);
   };
@@ -89,9 +92,7 @@ export default function ScratchCardPage() {
             >
               {claiming ? "Submitting..." : "Claim Reward"}
             </button>
-            <p className="sc-note">
-              Your reward will be confirmed and saved automatically.
-            </p>
+            <p className="sc-note">Your reward will be confirmed and saved automatically.</p>
           </div>
         ) : (
           <div className="sc-footer">
