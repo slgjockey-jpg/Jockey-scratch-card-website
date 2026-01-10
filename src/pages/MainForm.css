@@ -1,20 +1,125 @@
 .jf-wrap {
   min-height: 100vh;
-  background: #05050a;
+  background: radial-gradient(900px 500px at 10% 10%, rgba(0, 102, 255, 0.14), transparent 60%),
+    radial-gradient(800px 520px at 90% 90%, rgba(162, 0, 255, 0.14), transparent 62%),
+    radial-gradient(700px 400px at 50% 40%, rgba(255, 255, 255, 0.05), transparent 65%),
+    #05050a;
   color: #ffffff;
   padding: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.jf-bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.jf-bubble {
+  position: absolute;
+  left: calc((var(--i) * 7%) % 100%);
+  top: calc((var(--i) * 11%) % 100%);
+  width: calc(10px + (var(--i) * 1.3px));
+  height: calc(10px + (var(--i) * 1.3px));
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  filter: blur(0.2px);
+  opacity: 0.55;
+  animation: jfFloat calc(6s + (var(--i) * 0.2s)) ease-in-out infinite;
+}
+
+@keyframes jfFloat {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-18px) translateX(10px);
+  }
+}
+
+.jf-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.jf-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  filter: blur(0.2px);
+  opacity: 0.75;
+  animation: jfPulse 6s ease-in-out infinite;
+}
+
+.jf-ring-1 {
+  width: 520px;
+  height: 520px;
+  left: -220px;
+  top: -220px;
+  border-color: rgba(0, 102, 255, 0.18);
+}
+
+.jf-ring-2 {
+  width: 420px;
+  height: 420px;
+  right: -200px;
+  bottom: -220px;
+  border-color: rgba(162, 0, 255, 0.18);
+  animation-delay: 0.8s;
+}
+
+.jf-ring-3 {
+  width: 260px;
+  height: 260px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(255, 255, 255, 0.12);
+  animation-delay: 1.4s;
+}
+
+@keyframes jfPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.9;
+  }
 }
 
 .jf-card {
   width: min(92vw, 520px);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
   padding: 22px;
-  box-shadow: 0px 18px 55px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 22px 70px rgba(0, 0, 0, 0.65);
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(14px) saturate(140%);
+  overflow: hidden;
+}
+
+.jf-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(900px 350px at 10% 0%, rgba(0, 102, 255, 0.2), transparent 60%),
+    radial-gradient(820px 300px at 95% 100%, rgba(162, 0, 255, 0.22), transparent 65%);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .jf-form-only {
@@ -23,49 +128,105 @@
 
 .jf-heading {
   margin: 0;
-  font-size: 1.55rem;
-  font-weight: 900;
-  letter-spacing: 0.6px;
+  font-size: 1.7rem;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+  position: relative;
+  z-index: 2;
 }
 
 .jf-underline {
-  width: 140px;
+  width: 160px;
   height: 3px;
   margin: 10px auto 18px;
   border-radius: 999px;
   background: linear-gradient(90deg, #0066ff, #a200ff);
+  position: relative;
+  z-index: 2;
 }
 
 .jf-actions {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  position: relative;
+  z-index: 2;
 }
 
 .jf-action-block {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.jf-action-block::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06), transparent 55%);
+  transform: translateX(-40%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.jf-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.jf-step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+.jf-step-dot.active {
+  background: linear-gradient(180deg, #0066ff, #a200ff);
+  box-shadow: 0 0 16px rgba(128, 0, 255, 0.55);
+}
+
+.jf-step-dot.done {
+  background: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 102, 255, 0.35);
+}
+
+.jf-step-text {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .jf-btn {
   width: 100%;
   border: none;
   outline: none;
-  padding: 12px 14px;
+  padding: 13px 14px;
   border-radius: 14px;
-  font-weight: 900;
-  font-size: 0.98rem;
+  font-weight: 950;
+  font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.12s ease, opacity 0.12s ease;
+  transition: transform 0.12s ease, filter 0.12s ease, opacity 0.12s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.jf-btn:hover {
+  filter: brightness(1.06);
 }
 
 .jf-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .jf-btn-primary {
@@ -74,9 +235,9 @@
 }
 
 .jf-btn-secondary {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .jf-btn-gradient {
@@ -97,24 +258,54 @@
 
 .jf-hint {
   margin: 0;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.35;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.4;
+  position: relative;
+  z-index: 2;
+}
+
+.jf-error {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 60, 90, 0.12);
+  border: 1px solid rgba(255, 60, 90, 0.28);
+  color: rgba(255, 220, 230, 0.95);
+  font-weight: 800;
+  font-size: 0.92rem;
+  position: relative;
+  z-index: 2;
+}
+
+.jf-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.jf-footer-text {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 400px) {
   .jf-card {
     padding: 18px;
-    border-radius: 16px;
+    border-radius: 18px;
   }
 
   .jf-heading {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
   }
 
   .jf-btn {
     font-size: 0.94rem;
-    padding: 11px 12px;
+    padding: 12px 12px;
     border-radius: 13px;
   }
 }
