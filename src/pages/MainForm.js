@@ -95,7 +95,7 @@ export default function MainForm() {
 
       <div className="mf-shell">
         <div className="mf-hero">
-          <div className="mf-badge">SGL JOCKEY</div>
+          <div className="mf-badge">SLG JOCKEY</div>
           <h1 className="mf-title">Scratch and Win Rewards</h1>
           <p className="mf-subtitle">Complete the steps below to unlock your scratch card.</p>
         </div>

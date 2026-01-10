@@ -43,7 +43,7 @@ export default function ScratchCardPage() {
         <div className="sc-header">
           <img src="/images/image.jpeg" alt="Logo" className="sc-logo" />
           <div className="sc-title-wrap">
-            <h1 className="sc-title">SGL JOCKEY</h1>
+            <h1 className="sc-title">SLG JOCKEY</h1>
             <p className="sc-subtitle">Scratch to reveal your reward</p>
           </div>
         </div>

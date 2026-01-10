@@ -2,8 +2,9 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 18px;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(12px) saturate(160%);
@@ -25,16 +26,17 @@
 }
 
 .uf-modal {
+  position: relative;
   width: min(94vw, 560px);
   border-radius: 20px;
   padding: 18px;
-  position: relative;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0px 26px 80px rgba(0, 0, 0, 0.68);
-  transform: translateY(0);
   animation: ufPop 0.18s ease;
+  margin: 0 auto;
+  transform: translateZ(0);
 }
 
 @keyframes ufPop {
