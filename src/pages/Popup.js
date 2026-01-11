@@ -17,7 +17,7 @@ export default function Popup() {
         </div>
         <h2 className="popup-title">Jockey Scratch & Win</h2>
         <p className="popup-text">
-          Scratch and win exclusive rewards on your next purchase. Guaranteed prizes from 10% off up to 30% off.
+          Scratch and win exclusive rewards on your purchase. Guaranteed prizes up to 15% off.
         </p>
         <p className="popup-subtext">Your reward is waiting. Start now.</p>
         <div className="popup-shine" />

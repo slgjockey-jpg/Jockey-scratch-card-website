@@ -40,7 +40,7 @@ export default function WelcomePopup({ show }) {
               <div className="jp-step-dot" />
               <div>
                 <p className="jp-step-title">Scratch & Win</p>
-                <p className="jp-step-desc">Reveal your reward instantly on the next screen.</p>
+                <p className="jp-step-desc">Reveal your reward instantly on the screen.</p>
               </div>
             </div>
           </div>

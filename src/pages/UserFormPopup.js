@@ -110,7 +110,7 @@ export default function UserFormPopup({ onClose, onSubmit }) {
               <span className="uf-mark-dot" />
             </div>
             <div className="uf-brand-text">
-              <div className="uf-brand-title">SGL JOCKEY</div>
+              <div className="uf-brand-title">SLG JOCKEY</div>
               <div className="uf-brand-sub">Rewards Entry</div>
             </div>
           </div>

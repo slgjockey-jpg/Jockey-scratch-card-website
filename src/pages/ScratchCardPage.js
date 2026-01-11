@@ -64,7 +64,7 @@ export default function ScratchCardPage() {
                 <div className="sc-reward">
                   <div className="sc-reward-badge">Congratulations</div>
                   <div className="sc-reward-value">{prize}% OFF</div>
-                  <div className="sc-reward-text">On your next purchase</div>
+                  <div className="sc-reward-text">On your purchase</div>
                 </div>
               </div>
             </ScratchCanvas>
@@ -79,7 +79,7 @@ export default function ScratchCardPage() {
         </div>
 
         {showPrizePopup ? (
-          <div className="sc-toast">🎉 You won {prize}% off on your next purchase</div>
+          <div className="sc-toast">🎉 You won {prize}% off on your purchase</div>
         ) : null}
 
         {revealed ? (
