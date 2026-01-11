@@ -13,8 +13,9 @@ export default function ScratchCardPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const pool = [...Array(30).fill(10)];
-    setPrize(pool[Math.floor(Math.random() * pool.length)]);
+    const r = Math.random();
+    const value = r < 0.75 ? 5 : r < 0.95 ? 10 : 15;
+    setPrize(value);
   }, []);
 
   const onComplete = () => {
@@ -78,9 +79,7 @@ export default function ScratchCardPage() {
         </div>
 
         {showPrizePopup ? (
-          <div className="sc-toast">
-            🎉 You won {prize}% off on your next purchase
-          </div>
+          <div className="sc-toast">🎉 You won {prize}% off on your next purchase</div>
         ) : null}
 
         {revealed ? (
